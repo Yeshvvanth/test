@@ -6,7 +6,7 @@ import com.qlick.palindromeassignment.entity.Message;
 
 public interface MessageService {
 	
-	Message findById(int id);
+	Message findById(String id);
 	
 	List<Message> findAll();
 	
