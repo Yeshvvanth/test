@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.qlick.palindromeassignment.dao.MessageDao;
 import com.qlick.palindromeassignment.entity.Message;
-import com.qlick.palindromeassignment.exceptions.MessageNotFoundException;
 import com.qlick.palindromeassignment.utility.Palindrome;
 
 @Service
@@ -21,32 +20,11 @@ public class MesssageServiceImpl implements MessageService {
 
 	@Override
 	@Transactional
-	public Message findById(String id) {
+	public Message findById(int id) {
 		
-		Message message = null;
-		
-		try {
-			
-			int messageId= Integer.valueOf(id);
-			 message = messageDao.findById(messageId);
-
-		}	
-		catch(Exception e)
-		{
-			throw new NumberFormatException();
-		}
-		// throw exception if null
-		if (message == null) {
-			throw new MessageNotFoundException("Message not found - " + id);
-		}
-		
-		
-		
-		return message;
+		return messageDao.findById(id);
 	}
 
-	
-	
 	@Override
 	@Transactional
 	public List<Message> findAll() {
@@ -54,29 +32,9 @@ public class MesssageServiceImpl implements MessageService {
 		return messageDao.findAll();
 	}
 
-	
-	
-	
 	@Override
 	@Transactional
 	public void delete(int id) {
-		
-		Message message = null;
-		
-		try {
-			
-			int id1= Integer.valueOf(id);
-			
-			message = messageDao.findById(id1);
-
-		}
-		catch(Exception e)
-		{
-			throw new NumberFormatException();
-		}
-		if (message == null) {
-			throw new MessageNotFoundException("Message not found - " + id);
-		}
 		
 		messageDao.delete(id);
 
