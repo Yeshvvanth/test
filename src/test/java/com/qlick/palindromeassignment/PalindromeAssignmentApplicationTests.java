@@ -59,7 +59,7 @@ class PalindromeAssignmentApplicationTests {
 	@Test
 	public void getMessagesByIdTest() {
 		
-		int id =1;
+		int id = 1;
 		Message word = new Message(1,"mam",true);
 		when(messageDao.findById(id)).thenReturn(word);
 		assertEquals(1,messageService.findById(id).getId());
@@ -80,7 +80,8 @@ class PalindromeAssignmentApplicationTests {
 	@Test
 	public void deleteMessageTest()
 	{
-		int id =909;
+		
+		int id = 20;
 		messageService.delete(id);
 		verify(messageDao,times(1)).delete(id);
 		

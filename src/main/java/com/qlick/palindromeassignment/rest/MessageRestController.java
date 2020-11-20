@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qlick.palindromeassignment.entity.Message;
+import com.qlick.palindromeassignment.exceptions.MessageNotFoundException;
 import com.qlick.palindromeassignment.service.MessageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -26,22 +27,16 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 public class MessageRestController {
 	
-	
-	
-	
 	@Autowired
 	private MessageService messageService;
-	
-	
 
 	@GetMapping("/messages")
-	@ApiOperation(value="Returns the list of Messages along with respective properties")
+	@ApiOperation(value="Returns the list of Messages along with respective properties"
+					)
 	public List<Message> getMessages()
 	{
 		return messageService.findAll();
 	}
-	
-	
 	
 	
 	@PostMapping("/messages")
@@ -55,7 +50,10 @@ public class MessageRestController {
 	{
 		//just in case if user passes an id
 		message.setId(0);
-		return  messageService.save(message); 
+		
+		return  messageService.save(message);
+		 
+		 
 		
 	}
 	
@@ -72,8 +70,6 @@ public class MessageRestController {
 		
 	}
 	
-	
-	
 	@GetMapping("/messages/{id}")
 	@ApiOperation(value="Returns a specific Message with respective properties")
 	@ApiResponses(value = {
@@ -81,10 +77,22 @@ public class MessageRestController {
 			@ApiResponse(code=400,message="Only Number can be passed as paramter")})
 	public EntityModel<Message> getSpecificMessage(@PathVariable String id)
 	{
-			
-		
-		Message message = messageService.findById(id);
+		Message message = null;
+		try {
+			int id1= Integer.valueOf(id);
+			 message = messageService.findById(id1);
 
+		}
+		catch(Exception e)
+		{
+			throw new NumberFormatException();
+		}
+		
+		// throw exception if null
+		if (message == null) {
+			throw new MessageNotFoundException("Message not found - " + id);
+		}
+		
 		
 		//hateoas
 		//retrive all users
@@ -97,30 +105,35 @@ public class MessageRestController {
 		return resource;
 	}
 	
-	
-	
-	
-	
 	@DeleteMapping("/messages/{id}")
 	@ApiOperation(value="Deletes a  specific Message")
 	@ApiResponses(value = {
 			
 			@ApiResponse(code=200,message="Message successfully deleted"),
-			@ApiResponse(code=404,message="Message not found")})
+			@ApiResponse(code=404,message="Message not found")
+		
+	})
 	public String deleteMessage(@PathVariable String id)
 	{
 		
 		
-		messageService.findById(id);
-
-		return "Deleted message id - " + id;
+		Message message = null;
 		
-		//hateoas
-		//retrive all users
-//		EntityModel<Message> resource = EntityModel.of(message);
-//		WebMvcLinkBuilder linkTo = 
-//				WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getMessages());
-//		resource.add(linkTo.withRel("all-users"));
+		int messageId = Integer.valueOf(id);;
+		
+	
+		message = messageService.findById(messageId);
+			
+
+	
+		if (message == null) {
+			throw new MessageNotFoundException("Message not found - " + id);
+		}
+		
+		messageService.delete(messageId);
+			 
+		return "Deleted message id - " + id;
+
 
 		
 	}
