@@ -8,19 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
+
 @Entity
 @Table(name="Message")
+@ApiModel()
 public class Message {
 		
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@ApiModelProperty(notes="unique identifier for a Message")
 	private int id;
 	
 	@Column
 	@NotEmpty(message="Word is Mandatory.")
+	@ApiModelProperty(notes="word cannot be empty",required=true)
 	private String word;
 	
 	@Column
+    @ApiModelProperty(value = "some description", readOnly = true)
 	private boolean palindrome;
 	
 	
@@ -30,9 +38,6 @@ public class Message {
 		
 	}
 	
-	
-	
-
 
 	public Message(String word, boolean palindrome) {
 		this.word = word;
@@ -40,7 +45,11 @@ public class Message {
 	}
 
 
-
+	public Message(int id, String word, boolean b) {
+		this.id = id;
+		this.word = word;
+		this.palindrome = b;
+	}
 
 
 	public int getId() {
