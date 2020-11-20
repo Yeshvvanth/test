@@ -54,9 +54,9 @@ public class MessageRestController {
 		//just in case if user passes an id
 		message.setId(0);
 		
-		 messageService.save(message);
+		return  messageService.save(message);
 		 
-		 return message;	 
+		 
 		
 	}
 	
@@ -67,8 +67,8 @@ public class MessageRestController {
 	{
 		
 		message.setId(id);
-		 messageService.save(message);
-		 return message;
+		return messageService.save(message);
+		
 	}
 	
 	@GetMapping("/messages/{id}")

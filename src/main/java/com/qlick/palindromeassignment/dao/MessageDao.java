@@ -12,7 +12,7 @@ public interface MessageDao {
 	
 	void delete(int id);
 	
-	void save(Message message);
+	Message save(Message message);
 
 
 }

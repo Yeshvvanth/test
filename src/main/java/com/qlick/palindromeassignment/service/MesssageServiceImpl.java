@@ -42,10 +42,11 @@ public class MesssageServiceImpl implements MessageService {
 
 	@Override
 	@Transactional
-	public void save(Message message) {
+	public Message save(Message message) {
 		boolean value = Palindrome.isPalindrome(message.getWord());
 		message.setPalindrome(value);
-		messageDao.save(message);
+		return messageDao.save(message);
+		
 
 	}
 

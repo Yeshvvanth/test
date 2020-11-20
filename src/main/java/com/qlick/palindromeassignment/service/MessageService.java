@@ -12,7 +12,7 @@ public interface MessageService {
 	
 	void delete(int id);
 	
-	void save(Message message);
+	Message save(Message message);
 		
 
 
