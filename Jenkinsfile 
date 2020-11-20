@@ -1,0 +1,29 @@
+pipeline {
+    environment { 
+        registryCredential = 'ecr-creds'  
+    }
+    agent any 
+    stages {
+        stage('Build') { 
+            steps {
+                sh "docker build -t palindrome ."
+            } 
+        }
+        stage('docker-login') { 
+            steps {
+                sh "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 539785008510.dkr.ecr.eu-north-1.amazonaws.com"
+            }
+        }
+        stage('docker tag and push') { 
+            steps {
+                sh "docker tag palindrome:latest 539785008510.dkr.ecr.eu-north-1.amazonaws.com/palindrome:$BUILD_NUMBER"
+                sh "docker push 539785008510.dkr.ecr.eu-north-1.amazonaws.com/palindrome:$BUILD_NUMBER"
+                }
+        }
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi 539785008510.dkr.ecr.eu-north-1.amazonaws.com/palindrome:$BUILD_NUMBER" 
+            }
+        } 
+    }
+}

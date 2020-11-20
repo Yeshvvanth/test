@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.qlick.palindromeassignment.entity.Message;
 
-@Repository
 public class MessageDaoImpo implements MessageDao {
 	
 	private static List<Message> messages = new ArrayList();
@@ -47,10 +46,11 @@ public class MessageDaoImpo implements MessageDao {
 	}
 
 	@Override
-	public void save(Message message) {
+	public Message save(Message message) {
 		if(message.getId()==0)
 		{
 			messages.add(message);
+			return message;
 		}
 		else
 		{
@@ -58,8 +58,10 @@ public class MessageDaoImpo implements MessageDao {
 			{
 				if(TempMessage.getId()==message.getId())
 				messages.set(messages.indexOf(TempMessage),message);
+				return message;
 			}
 		}
+		return null;
 
 	}
 
