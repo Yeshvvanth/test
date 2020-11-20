@@ -51,8 +51,8 @@ public class MessageDaoJpaImpl implements MessageDao {
 	@Override
 	public void save(Message message) {
 		
-		Message MessageDb = entityManager.merge(message);
-		message.setId(MessageDb.getId());
+		Message savedMessage = entityManager.merge(message);
+		message.setId(savedMessage.getId());
 
 	}
 

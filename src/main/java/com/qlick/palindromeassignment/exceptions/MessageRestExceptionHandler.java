@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,7 +31,7 @@ public class MessageRestExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		
-		error.setMessage("Invalid Arguments");
+		error.setMessage("Invalid Request Body");
 		
 		error.setTimeStamp(new Date());
 
@@ -67,7 +68,7 @@ public class MessageRestExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		error.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
 		
-		error.setMessage("Invalid Http Method");
+		error.setMessage("Invalid Request Method");
 		
 		error.setTimeStamp(new Date());
 		
@@ -75,19 +76,59 @@ public class MessageRestExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(error,HttpStatus.METHOD_NOT_ALLOWED);
 	}
 	
+	
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    	
+		//create a message error response
+		MessageErrorResponse  error = new MessageErrorResponse();
+		
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		
+		error.setMessage("Invalid Http Method. Empty Request Body");
+		
+		error.setTimeStamp(new Date());
+		
+		//return response entity
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
+	
+	
+	//add Exception handling code
+	@ExceptionHandler
+	public ResponseEntity<MessageErrorResponse> handleInvalidPathException(NumberFormatException ex)
+	{
+		//create a message error response
+		MessageErrorResponse  error = new MessageErrorResponse();
+		
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		
+		error.setMessage("Only Number can be passed as paramter");
+		
+		error.setTimeStamp(new Date());
+		
+		//return response entity
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    
+    
 //	//generic exception
 //	@ExceptionHandler(Exception.class)
-//	public final ResponseEntity<Object> handleException(Exception ex, WebRequest request) throws Exception {
+//	public final ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) throws Exception {
 //		
 //		MessageErrorResponse  error = new MessageErrorResponse();
 //		
-//		error.setStatus();
+//		error.setStatus(HttpStatus.BAD_REQUEST.value());
 //		
 //		error.setMessage(ex.getMessage());
 //		
 //		error.setTimeStamp(new Date());
 //
 //		
+//		//return response entity
+//		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 //		
 //	}
 	
