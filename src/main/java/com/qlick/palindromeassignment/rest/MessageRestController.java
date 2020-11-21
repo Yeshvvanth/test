@@ -116,15 +116,11 @@ public class MessageRestController {
 	public String deleteMessage(@PathVariable String id)
 	{
 		
-		
-		Message message = null;
-		
+			
 		int messageId = Integer.valueOf(id);;
 		
 	
-		message = messageService.findById(messageId);
-			
-
+		Message message = messageService.findById(messageId);
 	
 		if (message == null) {
 			throw new MessageNotFoundException("Message not found - " + id);
