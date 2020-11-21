@@ -111,7 +111,7 @@ In the above sections, we have gone through all the components/layers we will be
 
 The below image shows the sequence diagram for the add new message functionality. As you can see, the request comes to the controller; then it goes through the Service layer; finally, it’s handled by the Data Access Object to create the document in the database.
 
-![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Post%20Request%20Rest%20API.png?raw=true)
+<kbd> ![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Post%20Request%20Rest%20API.png?raw=true) </kbd>
 
 ### 2. Get Messages List API – Sequence Diagram
 
@@ -119,23 +119,25 @@ The HTTP GET request will be sent to the controller to get the Messages list. Th
 
 Then the list of Messages will be retrieved for the search, filter and paging query from the database via the service and model. Finally, the retrieved message list will be sent back to the requester in the response object.
 
-![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Get%20Request%20Rest%20APi%20.png?raw=true)
+<kbd> ![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Get%20Request%20Rest%20APi%20.png?raw=true) </kbd>
 
 ### 3. Delete Messages API – Sequence Diagram
 
 The HTTP DELETE request will be sent to the controller to delete a message. The request comes with the message id which needs to be removed from the database. The controller receives the request and checks if a message exists before initiating the process of deleting a message from the database with the help of service and model components.
 
-![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Delete%20Request%20Rest%20API.png?raw=true)
+<kbd> ![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Delete%20Request%20Rest%20API.png?raw=true) </kbd>
 
 ### 4. Get Message API – Sequence Diagram
 
 The HTTP GET request will be sent to the controller to get a Message. The request comes with the message id which needs to be retrieved from the database. The controller receives the request and checks if a message exists before returning with the help of service and model components.
 
-![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Get%20a%20single%20Request%20Rest%20APi.png?raw=true)
+<kbd> ![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/main/src/main/resources/Images/Get%20a%20single%20Request%20Rest%20APi.png?raw=true) </kbd>
 
 ## Implementation Architecture
 
 The Restful service is implemented in a layered approach to achieve seperation of concerns.
+
+<kbd> ![alt text](https://github.com/Yeshvvanth/Palindrome-API/blob/feature1/src/main/resources/Images/REST%20architecture.png?raw=true) </kbd>
 
 ### 1. Controller
 
@@ -143,4 +145,13 @@ In this API, the controller will handle the request, invoke services to perform 
 
 ### 2 . Service
 
-This layer handles the business logic.
+This layer handles the business logic related to determing whether a particular message is palindrome or not. Service layer will make use of a utility class to do that. Also, the service will not have access to the request and response object. So anything needs to be done on the request and response object will have to be done in the controller only. This way there is a clear segregation of duties among all the components in the RESTful service.
+
+### 3. Data Access Object (DAO)
+
+This component is the data access layer to fetch and save the documents. The service layer will be invoking the DAO to perform any actions on the document in the database via the DAO.
+Typical operations that can be perfomed using this layer are creation, updation, removal and retrieval from the database.
+
+#### Note:
+
+The API is implementation based on the assumption that there are no storage bottlenecks. I have mapped the actions to HTTP methods as listed above. Non crud action was restructured to make the api as restful as possible by adding an attribute to Message resouce called palindrome. This attribute is updated by service layer on POST request such that every message will only be determined whether it's a palindrome or not only once.
