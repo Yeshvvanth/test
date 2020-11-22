@@ -8,14 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
 
 @Entity
 @Table(name="Message")
 @ApiModel()
-public class Message {
+public class Message extends RepresentationModel<Message> {
 		
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -2,6 +2,8 @@ package com.qlick.palindromeassignment.exceptions;
 
 import java.util.Date;
 
+
+//To define a custom style for Errors
 public class MessageErrorResponse {
 	
 	private int status;

@@ -11,14 +11,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.qlick.palindromeassignment.entity.Message;
 
+/**
+ * @author yeshwanthreddygaddam
+ *
+ */
 @Repository
 public class MessageDaoJpaImpl implements MessageDao {
 	
+	/**
+	 * The <code>EntityManager</code> API is used 
+	 * to create and remove persistent entity instances, to find entities 
+	 * by their primary key, and to query over entities.
+	 */
 	@Autowired
 	private EntityManager entityManager;
 	
 	
 
+	/**
+	 * This method returns the message object for the given id.
+	 * @param id the message Id
+	 * @return the message object, or {@code null} if none
+	 */
 	@Override
 	public Message findById(int id) {
 		
@@ -26,6 +40,10 @@ public class MessageDaoJpaImpl implements MessageDao {
 		return entityManager.find(Message.class,id);
 	}
 	
+	/**
+	 * This method returns a {@code List} with the message objects contained in this {@code List}.
+	 * @return the message objects, or {@code null} if none
+	 */
 	@Override
 	public List<Message> findAll() {
 		
@@ -39,6 +57,10 @@ public class MessageDaoJpaImpl implements MessageDao {
 		return messages;
 	}
 
+	/**
+	 * This method deletes the message object for the given id.
+	 * @param id the message Id
+	 */
 	@Override
 	public void delete(int id) {
 		
@@ -48,6 +70,11 @@ public class MessageDaoJpaImpl implements MessageDao {
 
 	}
 
+	/**
+	 * This method saves the message object.
+	 * @param message the message object
+	 * @return the Message object, or {@code null} if none
+	 */
 	@Override
 	public Message save(Message message) {
 		

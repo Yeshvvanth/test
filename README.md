@@ -4,27 +4,23 @@ This repository contains the open source Java code for Palindrome REST API. Docu
 
 ## Steps to setup
 
-### 1. Create an EC2 instance in aws cloud and ssh into it.
+### 1. Create an EC2 instance and install Docker, aws-cli.
 
-### 2. Download docker and aws-cli in the instance.
+### 2. Create a role and define an IAM policy with read/write permissions to ECR and attach the role to EC2 instance.
 
-### 3. Create an IAM policy with ECR read/write permission and then create an IAM role with some name, then attach the policy to this role.
-
-### 4. Now attach this role to the EC2 instance
-
-### 5. Clone the repository from the EC2 instance
+### 3. Clone the repository from the EC2 instance
 
 ```
    git clone https://github.com/Yeshvvanth/Palindrome-API.git
 ```
 
-### 6. Build the image using Dockerfile present in the repo.
+### 4. Build the image using Dockerfile present in the repo.
 
 ```
    sudo docker build -t palindrome .
 ```
 
-### 7. Login to ECR
+### 5. Login to ECR
 
 ```
   aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
@@ -32,19 +28,19 @@ This repository contains the open source Java code for Palindrome REST API. Docu
 
 -replace <region> <account-id> of your preference
 
-### 8. Tag the built image to ECR url
+### 6. Tag the built image to ECR url
 
 ```
 sudo docker tag palindrome:latest <account-id>.dkr.ecr.<region>.amazonaws.com/palindrome:latest
 ```
 
-### 9. Push Docker Image to AWS ECR
+### 7. Push Docker Image to AWS ECR
 
 ```
 sudo docker push <account-id>.dkr.ecr.<region>.amazonaws.com/palindrome:latest
 ```
 
-### 10. To create MySql database
+### 8. To create MySql database
 
 ```
 sudo docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<password> -e MYSQL_DATABASE=palindrome_app -d mysql
@@ -52,7 +48,7 @@ sudo docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<password> -e
 
 -replace <region> <account-id> of your preference
 
-### 11. Create DB Table
+### 9. Create DB Table
 
 ```
 sudo docker exec mysqldb -it sh
@@ -80,7 +76,7 @@ CREATE TABLE `message` (
 exit
 ```
 
-### 12. PUll the image from ECR and RUN the conatiner
+### 10. PUll the image from ECR and RUN the conatiner
 
 ```
 sudo docker run -p 8080:8080 --name palindrome --link mysqldb -d <account-id>.dkr.ecr.<region>.amazonaws.com/palindrome:latest
@@ -154,4 +150,5 @@ Typical operations that can be perfomed using this layer are creation, updation,
 
 #### Note:
 
-The API is implementation based on the assumption that there are no storage bottlenecks. I have mapped the actions to HTTP methods as listed above. Non crud action was restructured to make the api as restful as possible by adding an attribute to Message resouce called palindrome. This attribute is updated by service layer on POST request such that every message will only be determined whether it's a palindrome or not only once.
+The API is implemented based on the assumption that there are no storage bottlenecks. I have mapped the actions to HTTP methods as listed above. To map the non crud operation (determining whether a string is palindrome or not), the api was restructured to treat the palindrome as an attribute to message resource
+This attribute is updated by service layer on POST request such that every message will only be determined whether it's a palindrome or not only once.

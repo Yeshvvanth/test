@@ -20,7 +20,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//configuration - to indicate its a spring bean
+
+
+
+
+
+
+/**
+ * 
+ * * <h1>Generate API Documentation!</h1>
+ * The program generates a document based on the details specified.
+ * @author yeshwanthreddygaddam
+ *	
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

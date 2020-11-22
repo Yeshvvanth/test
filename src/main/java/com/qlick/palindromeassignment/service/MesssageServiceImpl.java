@@ -18,6 +18,13 @@ public class MesssageServiceImpl implements MessageService {
 	@Qualifier("messageDaoJpaImpl")
 	private MessageDao messageDao;
 
+	
+	
+	/**
+	 * Return the Message object for the given id.
+	 * @param id the Message Id
+	 * @return the Message object, or {@code null} if none
+	 */
 	@Override
 	@Transactional
 	public Message findById(int id) {
@@ -25,6 +32,11 @@ public class MesssageServiceImpl implements MessageService {
 		return messageDao.findById(id);
 	}
 
+	
+	/**
+	 * Return a {@code List} with the Message Objects contained in this {@code List}.
+	 * @return the Message objects, or {@code null} if none
+	 */
 	@Override
 	@Transactional
 	public List<Message> findAll() {
@@ -32,6 +44,12 @@ public class MesssageServiceImpl implements MessageService {
 		return messageDao.findAll();
 	}
 
+	
+	/**
+	 * Return the Message object for the given id.
+	 * @param id the Message Id
+	 * @return the Message object, or {@code null} if none
+	 */
 	@Override
 	@Transactional
 	public void delete(int id) {
@@ -40,6 +58,12 @@ public class MesssageServiceImpl implements MessageService {
 
 	}
 
+	/** This Method uses a utility class to determine
+	 * whether a Message is palindrome or not. 
+	 * Save the Message object.
+	 * @param Message the Message Object
+	 * @return the Message object, or {@code null} if none
+	 */
 	@Override
 	@Transactional
 	public Message save(Message message) {
