@@ -1,0 +1,12 @@
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/utility/Palindrome.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/exceptions/MessageNotFoundException.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/SwaggerConfig.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/PalindromeAssignmentApplication.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/entity/Message.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/dao/MessageDao.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/service/MessageService.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/rest/MessageRestController.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/service/MesssageServiceImpl.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/exceptions/MessageRestExceptionHandler.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/exceptions/MessageErrorResponse.java
+/Users/yeshwanthreddygaddam/IdeaProjects/palindrome-assignment/src/main/java/com/qlick/palindromeassignment/dao/MessageDaoJpaImpl.java
