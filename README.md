@@ -150,5 +150,5 @@ Typical operations that can be perfomed using this layer are creation, updation,
 
 #### Note:
 
-The API is implemented based on the assumption that there are no storage bottlenecks. I have mapped the actions to HTTP methods as listed above. To map the non crud operation (determining whether a string is palindrome or not), the api was restructured to treat the palindrome as an attribute to message resource
+The API is implemented based on the assumption that there are no storage bottlenecks. I have mapped the actions to HTTP methods as listed above. To map the non crud operation (determining whether a string is palindrome or not), the api is restructured to treat the palindrome as an attribute to message resource
 This attribute is updated by service layer on POST request such that every message will only be determined whether it's a palindrome or not only once.
